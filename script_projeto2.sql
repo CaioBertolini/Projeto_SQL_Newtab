@@ -45,5 +45,3 @@ select * from cartao where valido=true order by data_cadastro_cartao;
 insert into transacao(id_usuario, id_cartao, valor, data_cadastro_transacao) values (1,1,5000.00,NOW());
 
 select * from transacao inner join usuario ON transacao.id_usuario = usuario.id inner join cartao ON transacao.id_cartao=cartao.id order by data_cadastro_transacao asc;
-
-drop table cartao;
