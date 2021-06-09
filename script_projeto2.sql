@@ -6,9 +6,9 @@ create table usuario(
 	id int not null auto_increment,
     primary key(id),
 	nome  varchar(64) not null,
-	imagem varchar(100),
-	nome_usuario varchar(50) not null,
-	data_cadastro datetime not null
+	imagem varchar(500),
+	nome_usuario varchar(64) not null,
+	data_cadastro_usuario datetime not null
 );
 
 create table cartao(
@@ -18,7 +18,7 @@ create table cartao(
 	cvv int not null,
 	data_expiracao char(5) not null,
 	valido boolean not null,
-	data_cadastro datetime not null
+	data_cadastro_cartao datetime not null
 );
 
 create table transacao(
@@ -28,21 +28,22 @@ create table transacao(
     foreign key (id_usuario) references usuario(id),
 	id_cartao int,
     foreign key (id_cartao) references cartao(id),
-	valor float(10,2) not null,
-	data_cadastro datetime not null
+	valor decimal(20,2) not null,
+	data_cadastro_transacao datetime not null
 );
 
-insert into usuario(nome,imagem,nome_usuario,data_cadastro) values ("Eduardo Santos","https://randomuser.me/api/portraits/men/9.jpg","@eduardo.santos",NOW());
-insert into usuario(nome,imagem,nome_usuario,data_cadastro) values ("Amanda Souza","https://randomuser.me/api/portraits/women/59.jpg","@amanda.souza",NOW());
+insert into usuario(nome,imagem,nome_usuario,data_cadastro_usuario) values ("Eduardo Santos","https://randomuser.me/api/portraits/men/9.jpg","@eduardo.santos",NOW());
+insert into usuario(nome,imagem,nome_usuario,data_cadastro_usuario) values ("Amanda Souza","https://randomuser.me/api/portraits/women/59.jpg","@amanda.souza",NOW());
 
 select * from usuario order by nome;
 
-insert into cartao(numero,cvv,data_expiracao,valido,data_cadastro) values (1111113435111111,212,"01/21",true,NOW());
-insert into cartao(numero,cvv,data_expiracao,valido,data_cadastro) values (4111111111111234,123,"01/20",false,NOW());
+insert into cartao(numero,cvv,data_expiracao,valido,data_cadastro_cartao) values (1111113435111111,212,"01/21",true,NOW());
+insert into cartao(numero,cvv,data_expiracao,valido,data_cadastro_cartao) values (4111111111111234,123,"01/20",false,NOW());
 
-select * from cartao where valido=true order by data_cadastro;
+select * from cartao where valido=true order by data_cadastro_cartao;
 
+insert into transacao(id_usuario, id_cartao, valor, data_cadastro_transacao) values (1,1,5000.00,NOW());
+
+select * from transacao inner join usuario ON transacao.id_usuario = usuario.id inner join cartao ON transacao.id_cartao=cartao.id order by data_cadastro_transacao asc;
 
 drop table cartao;
-show tables;
-desc cartao;

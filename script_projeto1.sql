@@ -7,7 +7,7 @@ create table Projeto1(
     primary key (id),
     tipo varchar(20) NOT NULL,
 	nome varchar(50) NOT NULL,
-	valor float(10,2) NOT NULL,
+	valor decimal(10,2) NOT NULL,
 	data_cadastro datetime NOT NULL
 );
 
